@@ -68,3 +68,21 @@ class Library {
 const library = new Library();
 library.addBook(book1);
 library.listBooks();
+
+
+// Task 4: Implementing Book Borrowing
+Library.prototype.lendBook = function (borrowerId, isbn) {
+    const book = this.books.find(b => b.isbn === isbn && b.copies > 0);
+    const borrower = this.borrowers.find(b => b.borrowerId === borrowerId);
+
+    if (book && borrower) {
+        book.updateCopies(-1);
+        borrower.borrowBook(book.title);
+    }
+};
+
+// Test Case for Task 4
+library.borrowers.push(borrower1);
+library.lendBook(201, 123456);
+console.log(book1.getDetails());
+console.log(borrower1.borrowedBooks);
